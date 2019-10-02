@@ -89,6 +89,10 @@ startsecs=10
 EOF
 
 ldconfig /usr/local/lib/
-/etc/init.d/supervisor start || true
+if [ -f /etc/redhat-release ] &&  grep -q -i "release 7" /etc/redhat-release; then
+    systemctl start supervisord || true
+else 
+    /etc/init.d/supervisor start || true
+fi
 sleep 5
 supervisorctl update
