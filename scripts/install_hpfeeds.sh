@@ -76,7 +76,6 @@ mkdir -p /var/log/mhn
 mkdir -p /etc/supervisor/
 mkdir -p /etc/supervisor/conf.d
 
-
 cat >> /etc/supervisor/conf.d/hpfeeds-broker.conf <<EOF 
 [program:hpfeeds-broker]
 command=/opt/hpfeeds/env/bin/python /opt/hpfeeds/broker/feedbroker.py
@@ -86,8 +85,8 @@ stderr_logfile=/var/log/mhn/hpfeeds-broker.err
 autostart=true
 autorestart=true
 startsecs=10
+environment=LD_LIBRARY_PATH="/usr/local/lib"
 EOF
-
 ldconfig /usr/local/lib/
 if [ -f /etc/redhat-release ] &&  grep -q -i "release 7" /etc/redhat-release; then
     systemctl start supervisord || true
