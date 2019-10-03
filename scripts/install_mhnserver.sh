@@ -175,4 +175,13 @@ touch $MHN_HOME/server/mhn.log
 chown $NGINXUG -R $MHN_HOME/server/*
 
 supervisorctl update
-/etc/init.d/nginx restart
+
+if [ -f /etc/redhat-release ] &&  grep -q -i "release 7" /etc/redhat-release; then
+    firewall-cmd --zone=public --add-service=http --permanent
+    firewall-cmd --zone=public --add-service=https --permanent
+    firewall-cmd --reload
+    systemctl enable nginx
+    systemctl start nginx
+else
+    /etc/init.d/nginx restart
+fi
