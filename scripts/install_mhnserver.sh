@@ -179,6 +179,7 @@ supervisorctl update
 if [ -f /etc/redhat-release ] &&  grep -q -i "release 7" /etc/redhat-release; then
     firewall-cmd --zone=public --add-service=http --permanent
     firewall-cmd --zone=public --add-service=https --permanent
+    firewall-cmd --zone=public --add-port=10000/tcp --permanent
     firewall-cmd --reload
     systemctl enable nginx
     systemctl start nginx
