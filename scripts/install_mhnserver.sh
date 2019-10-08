@@ -181,6 +181,8 @@ if [ -f /etc/redhat-release ] &&  grep -q -i "release 7" /etc/redhat-release; th
     firewall-cmd --zone=public --add-service=https --permanent
     firewall-cmd --zone=public --add-port=10000/tcp --permanent
     firewall-cmd --reload
+    perl -0777pe 's/\s*server {.*}\s*#\s*}//gs' /etc/nginx/nginx.conf > /tmp/nginx.conf
+    \mv /tmp/nginx.conf /etc/nginx/nginx.conf
     systemctl enable nginx
     systemctl start nginx
 else
