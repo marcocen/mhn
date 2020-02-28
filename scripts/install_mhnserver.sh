@@ -51,6 +51,7 @@ $VIRTUALENV  -p $PYTHON env
 
 pip install -r server/requirements.txt
 if [ -f /etc/redhat-release ]; then
+    pip uninstall -y pysqlite
     pip install pysqlite==2.8.1
     service redis start
 fi
